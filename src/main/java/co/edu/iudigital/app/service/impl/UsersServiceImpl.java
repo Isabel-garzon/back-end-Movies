@@ -1,12 +1,15 @@
 package co.edu.iudigital.app.service.impl;
 
-import org.apache.catalina.User;
+
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.iudigital.app.model.entity.Users;
 import co.edu.iudigital.app.model.repository.UsersRepository;
 import co.edu.iudigital.app.service.iface.UsersService;
+
 @Service
 public class UsersServiceImpl implements UsersService{
 	@Autowired
@@ -14,6 +17,12 @@ public class UsersServiceImpl implements UsersService{
 	
 
 	public void create(Users users) {
+		boolean existsProfilesID = usersRepository
+				.existsById(users.getProfilesId().getId());
+		if(existsProfilesID) {
+			users.setCreateAt(LocalDateTime.now());
+			usersRepository.save(users);
+		}
 		
 	}
 
@@ -26,5 +35,6 @@ public class UsersServiceImpl implements UsersService{
 	  return existsUsers;
 	
 	}
+	
 
 }

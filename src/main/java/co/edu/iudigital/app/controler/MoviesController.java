@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +21,6 @@ import co.edu.iudigital.app.service.iface.MoviesService;
 @RestController
 @RequestMapping("/movies")
 @CrossOrigin("*")
-
 public class MoviesController {
 	
 	@Autowired
@@ -30,7 +28,7 @@ public class MoviesController {
 	
 	@GetMapping
 	public List<Movies> getAll(){
-		return moviesService.getAll();		
+		return moviesService.getAll();
 	}
 	
 	@PostMapping("/create")
@@ -42,15 +40,17 @@ public class MoviesController {
 	@PutMapping("/edit/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void edit(@RequestBody Movies movies, @PathVariable int id) {
-		moviesService.edit(movies,  id);
+		moviesService.edit(movies, id);
 	}
-
+	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable int id) {
 		moviesService.delete(id);
 	}
+	
 	@PutMapping("/rate/{id}")
 	public void rate(@RequestBody Movies movies, @PathVariable int id) {
 		moviesService.rate(movies, id);
 	}
+	
 }
